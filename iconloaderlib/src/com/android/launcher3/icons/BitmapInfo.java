@@ -31,8 +31,10 @@ import com.android.launcher3.util.FlagOp;
 public class BitmapInfo {
 
     static final int FLAG_INSTANT = 1 << 1;
+    static final int FLAG_CLONE = 1 << 2;
     @IntDef(flag = true, value = {
             FLAG_INSTANT,
+            FLAG_CLONE
     })
     @interface BitmapInfoFlags {}
 
@@ -188,6 +190,10 @@ public class BitmapInfo {
                 // e.g., shortcuts/widget user badges are very small, and these could affect
                 // regular launcher icons, and the other way around.
                 drawable.setBadge(mUserBadge.getConstantState().newDrawable().mutate());
+            } else if ((flags & FLAG_WORK) != 0) {
+                drawable.setBadge(context.getDrawable(R.drawable.ic_work_app_badge));
+            } else if ((flags & FLAG_CLONE) != 0) {
+                drawable.setBadge(context.getDrawable(R.drawable.ic_clone_app_badge));
             }
         }
     }
